@@ -19,20 +19,6 @@ func main() {
 		cnt++
 		fmt.Println(cnt, "\t", n)
 	}
-	/*
-		c0 := factorial(dat)
-		c1 := factorial(dat)
-		c2 := factorial(dat)
-		c3 := factorial(dat)
-		c4 := factorial(dat)
-		c5 := factorial(dat)
-		c6 := factorial(dat)
-
-		for n := range merge(c0, c1, c2, c3, c4, c5, c6) {
-			fmt.Println(n)
-		}
-	*/
-
 }
 
 // Generator for numbers to test
