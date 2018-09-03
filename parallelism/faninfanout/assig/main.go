@@ -19,6 +19,7 @@ func main() {
 		cnt++
 		fmt.Println(cnt, "\t", n)
 	}
+
 }
 
 // Generator for numbers to test
