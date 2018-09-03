@@ -13,6 +13,10 @@ func main() {
 	// Multiple functions reading from the same channel until that channel is closed
 	// Distribute work across multiple functions (ten goroutines) that all read from in.
 	xc := fanOut(in, 10)
+	fmt.Println("Fanned out", len(xc), "channels")
+
+	// SOLn
+	// Too many channels are getting made
 
 	// FAN IN
 	// multiplex multiple channels onto a single channel
@@ -37,10 +41,20 @@ func gen() <-chan int {
 }
 
 func fanOut(in <-chan int, n int) []<-chan int {
-	xc := make([]<-chan int, n)
+	xc := make([]<-chan int, n, n)
 	for i := 0; i < n; i++ {
-		xc = append(xc, factorial(in))
+		// the append doubles the capacity
+		// xc = append(xc, factorial(in))
+		xc[i] = factorial(in)
 	}
+	// if you must use append the below works
+	// the [] will change size a lot
+	/*
+		var xc []<-chan int // init to zero
+		for i := 0; i < n; i++ {
+			xc = append(xc, factorial(in))
+		}
+	*/
 	return xc
 }
 
@@ -74,6 +88,7 @@ func merge(cs ...<-chan int) <-chan int {
 		wg.Done()
 	}
 
+	// wait group in wrong order
 	wg.Add(len(cs))
 	for _, c := range cs {
 		go output(c)
